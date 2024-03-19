@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Entidad bancaria</title>
+  </head>
+  <body>
+    <h1>Lista de clientes</h1>
+    <ul>
+      {% for client in clients %}
+      <li>{{ client.nombre }} - {{ client.apellido_paterno }}</li>
+      {% endfor %}
+    </ul>
+    <a class="btn btn-primary" href="/admin">Useradministration</a>
+  </body>
+</html>

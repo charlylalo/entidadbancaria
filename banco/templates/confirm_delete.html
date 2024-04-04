@@ -1,13 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Entidad bancaria</title>
-</head>
-<body>
-    <h1>Eliminar {{title}}</h1>
-    <form method="post">{% csrf_token %}
-      Are you sure you want to delete "{{ object }}" ?<br/>
-      <input type="submit" value="Delete" />
-  </form>
-</body>
-</html>
+{% extends "base.html" %} {% block content %}
+<div style="margin: 3% 10%">
+  <div class="forms-box">
+    <div style="display: flex; width: 60%; flex-direction: column; gap: 15px">
+      <h2>Eliminar {{title}}</h2>
+      <form method="post">
+        {% csrf_token %}
+        <span>¿Está seguro de querer eliminar "{{ object }}" ?</span>
+        <br />
+        <div class="d-grid gap-2 col-4 mx-auto" style="margin-top: 5%;">
+          <input class="btn btn-danger" type="submit" value="Eliminar" />
+          <a class="btn btn-info" style="margin-top: 10px" href="/"> Cancelar </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

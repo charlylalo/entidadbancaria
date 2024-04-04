@@ -34,6 +34,7 @@
       <th scope="col">Estado</th>
       <th scope="col">Balance</th>
       <th scope="col">Acciones</th>
+      <th scope="col">Transacciones</th>
     </tr>
   </thead>
   <tbody>
@@ -58,6 +59,15 @@
             <i class="fa fa-trash-o" aria-hidden="true"></i>
           </a>
         </div>
+      </td>
+      <td>
+        <a
+            type="button"
+            class="btn btn-primary"
+            href="{% url 'transaction_create' account.id %}"
+          >
+            Crear
+          </a>
       </td>
     </tr>
     {% endfor %}

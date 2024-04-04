@@ -87,7 +87,7 @@ class Transacciones(models.Model):
         default='pn'
     )
 
-    cuenta_origen = models.CharField(max_length = 10)
+    cuenta_origen = models.CharField(max_length = 36)
 
     def __str__(self):
       return f'transacción ${self.pk}'

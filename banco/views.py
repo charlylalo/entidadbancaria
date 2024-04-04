@@ -59,12 +59,12 @@ def accounts_list(request, client, template_name='accounts_list.html'):
   try: 
     accounts = get_list_or_404(Cuenta, cliente=client)
   except Exception as error:
-    print("Error al obtener cuentas")
+    print("Error al obtener cuentas", error)
     accounts = []
   try:
      client_obj = get_object_or_404(Cliente, id=client)
   except Exception as error:
-     print("Error al obtener cliente")
+     print("Error al obtener cliente", error)
      client_obj = {"nombre": "unknown", "apellido_paterno": "user"}
   data = {}
   data['accounts'] = accounts
@@ -121,3 +121,40 @@ class TransactionsView(View):
       print("hubo un error", error)
       transactions = []
     return render(request, "transactions_list.html", {"transactions": transactions})
+
+# def transaction_list(request, client, template_name='accounts_list.html'):
+#   try:
+#     accounts = get_list_or_404(Cuenta, cliente=client)
+#   except Exception as error:
+#     print("Error al obtener cuentas", error)
+#     accounts = []
+#   try:
+#      client_obj = get_object_or_404(Cliente, id=client)
+#   except Exception as error:
+#      print("Error al obtener cliente", error)
+#      client_obj = {"nombre": "unknown", "apellido_paterno": "user"}
+#   data = {}
+#   data['accounts'] = accounts
+#   data['client_id'] = client
+#   print("Este es el cliente obj", client_obj)
+#   data['client_name'] = f'{client_obj.nombre} {client_obj.apellido_paterno}'
+#   return render(request, template_name, data)
+
+class TransactionForm(forms.ModelForm):
+    class Meta:
+        model = Transacciones
+        fields = '__all__'
+        widgets = {
+            'fecha': DateInput()
+        }
+    def __init__(self, *args, **kwargs):
+      super().__init__(*args, **kwargs)
+      for field in self.fields.values():
+          field.widget.attrs['class'] = 'form-control'
+
+def transaction_create(request, account, template_name='clients_form.html'):
+  form = TransactionForm(request.POST or None, initial={'cuenta' : account})
+  if form.is_valid():
+      form.save()
+      return redirect('clients_list')
+  return render(request, template_name, {'form':form, 'title': "Nueva Transacción"})

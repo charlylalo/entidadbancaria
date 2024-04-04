@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from banco.views import accounts_list, account_update, accounts_create, account_delete, clients_list, clients_create, clients_update, clients_delete, TransactionsView
+from banco.views import accounts_list, transaction_create, account_update, accounts_create, account_delete, clients_list, clients_create, clients_update, clients_delete, TransactionsView
 
 
 urlpatterns = [
@@ -29,4 +29,5 @@ urlpatterns = [
     path('accounts/update/<str:pk>/', account_update, name= 'account_update'),
     path('account/delete/<str:pk>', account_delete, name='account_delete'),
     path('transactions/<str:transaction>/', TransactionsView.as_view(), name='transactions_list'),
+    path('transactoins/create/<str:account>/', transaction_create, name='transaction_create')
 ]

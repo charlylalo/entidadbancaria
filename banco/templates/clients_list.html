@@ -1,15 +1,67 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Entidad bancaria</title>
-  </head>
-  <body>
-    <h1>Lista de clientes</h1>
-    <ul>
+{% extends "base.html" %} {% block content %}
+<div style="margin: 2%">
+  <h2>Lista de clientes</h2>
+  {% if clients|length == 0 %}
+  <h3>Sin usuarios registrados</h3>
+  {% endif %}
+
+  <div style="display: flex; justify-content: flex-end">
+    <a class="btn btn-primary rounded-pill" href="/clients/create">
+      <div
+        style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 5px;
+        "
+      >
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        <span> Nuevo usuario</span>
+      </div></a
+    >
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">No. Cliente</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Fecha Registro</th>
+        <th scope="col">Correo Electrónico</th>
+        <th scope="col">Cuentas</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
       {% for client in clients %}
-      <li>{{ client.nombre }} - {{ client.apellido_paterno }}</li>
+      <tr>
+        <th scope="row">{{client.id}}</th>
+        <td>{{client.nombre}} {{client.apellido_paterno}}</td>
+        <td>{{client.fecha_registro}}</td>
+        <td>{{client.email}}</td>
+        <td>
+          <a class="btn btn-primary" href="{% url 'account_list' client.id %}">
+            Ver
+          </a>
+        </td>
+        <td>
+          <div>
+            <a class="btn btn-primary" href="{% url 'client_edit' client.id %}">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </a>
+            <a
+              type="button"
+              class="btn btn-danger"
+              href="{% url 'client_delete' client.id %}"
+            >
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </a>
+          </div>
+        </td>
+      </tr>
       {% endfor %}
-    </ul>
-    <a class="btn btn-primary" href="/admin">Useradministration</a>
-  </body>
-</html>
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

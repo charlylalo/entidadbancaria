@@ -1,0 +1,12 @@
+body {
+}
+
+.forms-box {
+  flex-direction: column;
+  background-color: #B1D4E0;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 3% 0;
+}

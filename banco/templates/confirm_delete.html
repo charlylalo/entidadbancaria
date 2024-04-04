@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Entidad bancaria</title>
+</head>
+<body>
+    <h1>Eliminar {{title}}</h1>
+    <form method="post">{% csrf_token %}
+      Are you sure you want to delete "{{ object }}" ?<br/>
+      <input type="submit" value="Delete" />
+  </form>
+</body>
+</html>

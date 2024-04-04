@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Entidad bancaria</title>
+  </head>
+  <body>
+    <h1>Lista de transacciones</h1>
+    <ul>
+      {% for transaction in transactions %}
+      <li>{{ transaction.tipo }} - {{ transaction.cantidad }}</li>
+      {% endfor %}
+    </ul>
+    <a href="{{request.META.HTTP_REFERER}}">Go Back</a>
+  </body>
+</html>

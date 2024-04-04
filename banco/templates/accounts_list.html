@@ -1,0 +1,68 @@
+{% extends "base.html" %} {% block content %}
+<div style="margin: 2%">
+<h2>Cuentas Bancarias de {{client_name}}</h2>
+{% if accounts|length == 0 %}
+<h3>Sin cuentas asociadas</h3>
+{% endif %} 
+
+<div style="display: flex; justify-content: flex-end">
+  <a
+    class="btn btn-primary rounded-pill"
+    href="{% url 'account_create' client_id %}"
+  >
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+      "
+    >
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      <span>Agregar cuenta</span>
+    </div></a
+  >
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">No.cuenta</th>
+      <th scope="col">Asesor</th>
+      <th scope="col">Fecha Creación</th>
+      <th scope="col">Tipo cuenta</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Balance</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for account in accounts %}
+    <tr>
+      <th scope="row">{{account.id}}</th>
+      <td>{{account.asesor.all|join:", "}}</td>
+      <td>{{account.feha_creacion}}</td>
+      <td>{{account.get_tipo_cuenta_display}}</td>
+      <td>{{account.get_status_display}}</td>
+      <td>${{account.balance}}</td>
+      <td>
+        <div>
+          <a class="btn btn-primary" href="{% url 'account_update' account.id %}">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          </a>
+          <a
+            type="button"
+            class="btn btn-danger"
+            href="{% url 'account_delete' account.id %}"
+          >
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+          </a>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a class="btn btn-primary" href="/">Regresar</a>
+</div>
+{% endblock %}

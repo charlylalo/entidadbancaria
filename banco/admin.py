@@ -9,3 +9,5 @@ admin.site.register(Cliente)
 admin.site.register(Cuenta)
 admin.site.register(Transacciones)
 admin.site.register(Financiamiento)
+
+#Se pretende actualizar este archivo a efectos de pruebas
